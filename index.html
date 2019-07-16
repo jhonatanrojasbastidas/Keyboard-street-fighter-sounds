@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Keyboard street fighter 2 sounds</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">fight</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">you lose</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">you win</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">hadoken</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">shoryuken</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ryu/ken kick</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">sagat tiger</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">sagat uppercut</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">perfect</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/Fight.mp3"></audio>
+  <audio data-key="83" src="sounds/You lose.mp3"></audio>
+  <audio data-key="68" src="sounds/You win.mp3"></audio>
+  <audio data-key="70" src="sounds/RyuKen Hadoken.mp3"></audio>
+  <audio data-key="71" src="sounds/RyuKen Shoryuken.mp3"></audio>
+  <audio data-key="72" src="sounds/RyuKen Kick.mp3"></audio>
+  <audio data-key="74" src="sounds/Sagat Tiger.mp3"></audio>
+  <audio data-key="75" src="sounds/Sagat Uppercut.mp3"></audio>
+  <audio data-key="76" src="sounds/Perfect.mp3"></audio>
+
+<script>
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!audio) return;
+
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+</script>
+
+</body>
+</html>
